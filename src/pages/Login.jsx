@@ -1,24 +1,38 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import '@styles/Login.scss'
 import logoyardsale from '@logos/logo_yard_sale.svg';
 
 const Login = () => {
+  const form = useRef(null);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData(form.current);
+    const data = {
+      username: formData.get('email'),
+      password: formData.get('password')
+    }
+    console.log(data);
+  }
+
   return (
     <div className="login">
-      <div className="form-container">
+      <div className="Login-container">
         <img src={logoyardsale} alt="logo" className="logo"/>
 
-        <h1 className="title">Create a new password</h1>
-        <p className="subtitle">Enter a new passwrd for yue account</p>
+        <form action="/" className="form" ref={form}>
+          <label htmlFor="email" className="label">Email address</label>
+					<input type="text" name="email" placeholder="platzi@example.cm" className="input input-email" />
 
-        <form action="/" className="form">
           <label htmlFor="password" className="label">Password</label>
-          <input type="password" id="password" placeholder="*********" className="input input-password"/>
+          <input type="password" name="password" placeholder="*********" className="input input-password"/>
 
-          <label htmlFor="new-password" className="label">Password</label>
-          <input type="password" id="new-password" placeholder="*********" className="input input-password"/>
-
-          <input type="submit" value="Confirm" className="primary-button login-button"/>
+          <button 
+            className="secondary-button signup-button"
+            onClick={handleSubmit}
+          >
+            Log in
+          </button>
         </form>
       </div>
     </div>
